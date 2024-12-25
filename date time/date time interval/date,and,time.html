@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Interval Calculator</title>
+    <style>
+        /* CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .output p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Date Interval</h1>
+        <label for="fromDate">From:</label>
+        <input type="date" id="fromDate" value="1990-01-25">
+        
+        <label for="toDate">To:</label>
+        <input type="date" id="toDate" value="2016-05-26">
+        
+        <button onclick="calculateInterval()">Calculate</button>
+        
+        <div id="result" class="output" style="display: none;">
+            <p id="intervalYears"></p>
+            <p id="intervalMonths"></p>
+            <p id="intervalWeeks"></p>
+            <p id="intervalDays"></p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for date calculation and display
+        function calculateInterval() {
+            const fromDate = new Date(document.getElementById("fromDate").value);
+            const toDate = new Date(document.getElementById("toDate").value);
+
+            if (fromDate > toDate) {
+                alert("The 'From' date cannot be later than the 'To' date.");
+                return;
+            }
+
+            const diffTime = toDate - fromDate;
+
+            const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const weeks = Math.floor(days / 7);
+            const months = (toDate.getFullYear() - fromDate.getFullYear()) * 12 + (toDate.getMonth() - fromDate.getMonth());
+            const years = Math.floor(months / 12);
+
+            // Display results
+            document.getElementById("result").style.display = "block";
+            document.getElementById("intervalYears").textContent = `In years: ${years}`;
+            document.getElementById("intervalMonths").textContent = `In months: ${months}`;
+            document.getElementById("intervalWeeks").textContent = `In weeks: ${weeks}`;
+            document.getElementById("intervalDays").textContent = `In days: ${days}`;
+        }
+    </script>
+</body>
+</html>
